@@ -2,9 +2,31 @@
 const inquirer = require('inquirer');
 const Choices = require('inquirer/lib/objects/choices');
 const fs = require('fs');
+const generateMarkdown = require('./utils/generateMarkdown');
 // TODO: Create an array of questions for user input
-const questions = [
-    {
+const questions = () => {
+
+}
+
+// TODO: Create a function to write README file
+function writeToFile(fileName, data) {
+    return new Promise((resolve, reject) => {
+        fs.writeFile(`${fileName}.md`, data, err => {
+            if (err) {
+                reject(err);
+                return;
+            }
+            resolve({
+                ok: true,
+                message: 'file created!'
+            });
+        });
+    });
+};
+
+// TODO: Create a function to initialize app
+function init() {
+    return inquirer.prompt([{
         type: 'input',
         name: 'name',
         message: 'What is the title of your project?',
@@ -100,32 +122,13 @@ const questions = [
         type: 'input',
         name: 'email',
         message: 'Enter your email address (optional)',
-    },]
-
-// TODO: Create a function to write README file
-function writeToFile(fileName, data) {
-    return new Promise((resolve, reject) => {
-        fs.writeFile(`${fileName}.md`, data, err => {
-            if (err) {
-                reject(err);
-                return;
-            }
-            resolve({
-                ok: true,
-                message: 'file created!'
-            });
-        });
-    });
-};
-
-// TODO: Create a function to initialize app
-function init() {
-    inquirer.prompt([questions])
-    .then (portfolioData => {
-        return writeToFile(global.projectName, portfolioData);
-    });
+    }])
 };
 
 // Function call to initialize app
 init()
-    .then
+    .then(projectData => {
+        const pageData = generateMarkdown(projectData);
+
+        return writeToFile(global.projectName, pageData)
+    });
