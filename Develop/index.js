@@ -4,14 +4,14 @@ const Choices = require('inquirer/lib/objects/choices');
 const fs = require('fs');
 const generateMarkdown = require('./utils/generateMarkdown');
 // TODO: Create an array of questions for user input
-const questions = () => {
+// const questions = () => {
 
-}
+// }
 
 // TODO: Create a function to write README file
 function writeToFile(fileName, data) {
     return new Promise((resolve, reject) => {
-        fs.writeFile(`${fileName}.md`, data, err => {
+        fs.writeFile(`./dis/${fileName}.md`, data, err => {
             if (err) {
                 reject(err);
                 return;
@@ -28,14 +28,14 @@ function writeToFile(fileName, data) {
 function init() {
     return inquirer.prompt([{
         type: 'input',
-        name: 'name',
+        name: 'title',
         message: 'What is the title of your project?',
         validate: nameInput => {
             if (nameInput) {
                 global.projectName = nameInput;
                 return true;
             } else {
-                console.log('Please enter your name!');
+                console.log('Please enter your project title');
                 return false;
             }
         }
@@ -48,7 +48,7 @@ function init() {
           if (nameInput) {
             return true;
           } else {
-            console.log('You need to enter a project description!');
+            console.log('Please enter a project description');
             return false;
           }
         }
@@ -113,7 +113,7 @@ function init() {
             if (nameInput) {
                 return true;
             } else {
-                console.log('Please enter your Username!');
+                console.log('Please enter your Username');
                 return false;
             }
         }
@@ -122,13 +122,20 @@ function init() {
         type: 'input',
         name: 'email',
         message: 'Enter your email address (optional)',
+    },
+    {
+        type: 'checkbox',
+        name: 'license',
+        message: 'What kind of license does your project have?',
+        choices: ['GNU AGPLv3', 'GNU GPLv3', 'GNU LGPLv3', 'Mozilla Public License 2.0', 'Apache License 2.0', 'MIT License', 'Boost Software License 1.0', 'Unlicensed']
     }])
 };
 
 // Function call to initialize app
 init()
     .then(projectData => {
+        // console.log('fuck');
         const pageData = generateMarkdown(projectData);
-
+        // console.log(pageData);
         return writeToFile(global.projectName, pageData)
     });
