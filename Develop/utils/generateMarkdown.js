@@ -39,10 +39,8 @@ function renderLicenseLink(license) {
 // Creates the license section if the user selected one
 function renderLicenseSection(license) {
   if (license != 'Unlicensed') {
-    return `
-    ## License
-    This project is licensed with
-    ${renderLicenseLink(license)}
+    return `## License
+This project is licensed with ${renderLicenseLink(license)}
     `
   } else {
     // if no license was selected, the function returns an empty string

@@ -35,7 +35,6 @@
   You can email questions to josiahdouglass64@gmail.com for more information
 
   
-    ## License
-    This project is licensed with
-    [MIT License](https://opensource.org/licenses/MIT)
+  ## License
+  This project is licensed with [MIT License](https://opensource.org/licenses/MIT)
     
