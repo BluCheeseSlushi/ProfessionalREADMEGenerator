@@ -93,7 +93,7 @@ function init() {
     {
         type: 'input',
         name: 'tests',
-        message: 'Provide describe the tests a contribution must pass (Required)',
+        message: 'Describe the tests a contribution must pass (Required)',
         validate: nameInput => {
           if (nameInput) {
             return true;
