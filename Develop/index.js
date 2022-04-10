@@ -1,16 +1,13 @@
-// TODO: Include packages needed for this application
+//Gett the resources needed using require
 const inquirer = require('inquirer');
 const Choices = require('inquirer/lib/objects/choices');
 const fs = require('fs');
 const generateMarkdown = require('./utils/generateMarkdown');
-// TODO: Create an array of questions for user input
-// const questions = () => {
 
-// }
-
-// TODO: Create a function to write README file
+// Create a funtion to write a file using the template and the user data
 function writeToFile(fileName, data) {
     return new Promise((resolve, reject) => {
+        // The file will use the project's title for the name
         fs.writeFile(`./dis/${fileName}.md`, data, err => {
             if (err) {
                 reject(err);
@@ -24,14 +21,15 @@ function writeToFile(fileName, data) {
     });
 };
 
-// TODO: Create a function to initialize app
+// Create a function that asks the user for details related to the project using inquirer
 function init() {
     return inquirer.prompt([{
         type: 'input',
         name: 'title',
-        message: 'What is the title of your project?',
+        message: 'What is the title of your project? (Required)',
         validate: nameInput => {
             if (nameInput) {
+                // Stores the project title in a global var to be used for the file name
                 global.projectName = nameInput;
                 return true;
             } else {
@@ -48,7 +46,7 @@ function init() {
           if (nameInput) {
             return true;
           } else {
-            console.log('Please enter a project description');
+            console.log('Please enter a project description ');
             return false;
           }
         }
@@ -108,7 +106,7 @@ function init() {
     {
         type: 'input',
         name: 'github',
-        message: 'Enter your Github Username',
+        message: 'Enter your Github Username (Required)',
         validate: nameInput => {
             if (nameInput) {
                 return true;
@@ -131,11 +129,11 @@ function init() {
     }])
 };
 
-// Function call to initialize app
+// Calls the init funcion to start the program
 init()
     .then(projectData => {
-        // console.log('fuck');
+        // Passes the data to the template literal to generate the file content
         const pageData = generateMarkdown(projectData);
-        // console.log(pageData);
+        // Pass the the file content and project name to the writeToFile function
         return writeToFile(global.projectName, pageData)
     });

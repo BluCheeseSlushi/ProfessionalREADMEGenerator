@@ -1,5 +1,4 @@
-// TODO: Create a function that returns a license badge based on which license is passed in
-// If there is no license, return an empty string
+// Picks a badge for the license the uses picked
 function renderLicenseBadge(license) {
   if (license == 'GNU AGPLv3') {
     return '[![License: AGPL v3](https://img.shields.io/badge/License-AGPL_v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0.en.html)';
@@ -18,11 +17,8 @@ function renderLicenseBadge(license) {
   }else {
     return '';
   }
-  
 }
-
-// TODO: Create a function that returns the license link
-// If there is no license, return an empty string
+// Provides a link for the license
 function renderLicenseLink(license) {
   if (license == 'GNU AGPLv3') {
     return '[GNU AGPLv3 license](https://www.gnu.org/licenses/agpl-3.0.en.html)';
@@ -40,9 +36,7 @@ function renderLicenseLink(license) {
     return '[Boost Software License 1.0](https://www.boost.org/users/license.html)';
   };
 };
-
-// TODO: Create a function that returns the license section of README
-// If there is no license, return an empty string
+// Creates the license section if the user selected one
 function renderLicenseSection(license) {
   if (license != 'Unlicensed') {
     return `
@@ -51,21 +45,22 @@ function renderLicenseSection(license) {
     ${renderLicenseLink(license)}
     `
   } else {
+    // if no license was selected, the function returns an empty string
     return ``
   }
 }
 
-// TODO: Create a function to generate markdown for README
 function generateMarkdown(data) {
   const license = data.license
-  console.log(data);
-
+  // Because the email section was optional, data email is pass through an if statement
   if (data.email) {
+    // If the user entered an email, then it is added to the page
     global.address = `You can email questions to ${data.email} for more information`;
   } else {
+    // otherwise the section is left blank
     global.address = '';
   }
-  
+  // The function returns the page template with the user data in the proper sectiopns
   return `
   # ${data.title}
   ${renderLicenseBadge(license)}
@@ -105,5 +100,5 @@ function generateMarkdown(data) {
   ${renderLicenseSection(license)}
 `;
 }
-
+// Exports the generateMarkdown function to be used by index.js
 module.exports = generateMarkdown;
