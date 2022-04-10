@@ -2,6 +2,7 @@
 
 ## Description
 This program creates a unique and professional README file using inquirer to collect user data.
+[Demo](https://youtu.be/HNS0HZOM73w)
 
 ## Installation
 To install the README generator, download the files and enter "npm install" into the command line.
